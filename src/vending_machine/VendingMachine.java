@@ -5,7 +5,6 @@ package vending_machine;
  * 추상 메소드를 이 클래스에서 구현을 시키거나<br/>
  * 이 클래스도 추상 클래스로 만들어 주어야 한다.<br/>
  * <b>환불 불가능한 자판기</b>
- * 변경변경변경
  */
 public class VendingMachine extends Seller {
 	
