@@ -18,6 +18,31 @@ public class VendingMachine implements Sellable {
 	 */
 	private int money;
 	
+	public VendingMachine() {
+		this(100_000);
+	}
+	
+	public VendingMachine(int money) {
+		this.money = money;
+		
+		this.productArray = new Product[3];
+		
+		this.productArray[0] = new Product();
+		this.productArray[0].setName("제로펩시");
+		this.productArray[0].setPrice(1600);
+		this.productArray[0].setQuantity(50);
+		
+		this.productArray[1] = new Product();
+		this.productArray[1].setName("제로콜라");
+		this.productArray[1].setPrice(1500);
+		this.productArray[1].setQuantity(30);
+		
+		this.productArray[2] = new Product();
+		this.productArray[2].setName("제로스프라이트");
+		this.productArray[2].setPrice(1400);
+		this.productArray[2].setQuantity(20);
+	}
+	
 	@Override
 	public Product[] getProductArray() {
 		return this.productArray;
@@ -68,8 +93,7 @@ public class VendingMachine implements Sellable {
 		}
 	}
 
-	@Override
-	public void refund(Customer customer, int refundMoney) {
+	protected void refund(Customer customer, int refundMoney) {
 		
 	}
 

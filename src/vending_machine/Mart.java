@@ -43,7 +43,7 @@ public class Mart {
 		// 제품명 : 보드마카, 가격 : 500, 재고 : 40
 		
 		
-		// Seller
+		// Seller (추상클래스)
 		//  --> VendingMachine
 		//  --> RefundableVendingMachine
 		// IS A ( 다형성 )
@@ -52,9 +52,18 @@ public class Mart {
 		// Seller drinkVendingMachine = new VendingMachine();
 		// Seller drinkVendingMachine = new RefundableVendingMachine();
 		
+		// Sellable (인터페이스)
+		//   --> (구현) VendingMachine
+		//   --> (구현) RefundableVendingMachine
+		// 인터페이스를 구현 ( IS A )
+		// VendingMachine is a Sellable
+		// RefundableVendingMachine is Sellable
+		// Sellable drinkVendingMachine = new VendingMachine();
+		// Sellable drinkVendingMachine = new RefundableVendingMachine();
+		
 		
 		// 객체지향 방식으로 개발.
-		Seller drinkMachine = new VendingMachine();
+		Sellable drinkMachine = new VendingMachine();
 		
 		Customer musk = new Customer(200_000);
 		
@@ -67,7 +76,7 @@ public class Mart {
 		drinkMachine.printProducts();
 		musk.printProducts();
 		
-		Seller snackMachine = new RefundableVendingMachine(400);
+		Sellable snackMachine = new RefundableVendingMachine(400);
 		snackMachine.insertMoney(musk, "제로펩시");
 		snackMachine.pressButton(musk, "제로펩시", 50);
 		

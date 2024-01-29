@@ -31,13 +31,13 @@ public interface Sellable {
 	
 	public void pressButton(Customer customer, String productName, int orderCount);
 	
-	/**
-	 * 고객에게 환불처리 한다.
-	 * 상속된 클래스에서만 사용할 수 있도록 한다.
-	 * @param customer 환불 받을 고객
-	 * @param refundMoney 환불 받을 금액
-	 */
-	public void refund(Customer customer, int refundMoney);
+//	/**
+//	 * 고객에게 환불처리 한다.
+//	 * 상속된 클래스에서만 사용할 수 있도록 한다.
+//	 * @param customer 환불 받을 고객
+//	 * @param refundMoney 환불 받을 금액
+//	 */
+//	public void refund(Customer customer, int refundMoney);
 	
 	public void printProducts();
 	
