@@ -63,7 +63,7 @@ public class Mart {
 		
 		
 		// 객체지향 방식으로 개발.
-		Sellable drinkMachine = new VendingMachine();
+		Sellable drinkMachine = new RefundableVendingMachine();
 		
 		Customer musk = new Customer(200_000);
 		
