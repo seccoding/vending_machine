@@ -3,16 +3,16 @@ package vending_machine;
 /**
  * 환불 기능이 있는 자판기
  */
-public class RefundableVendingMachine 
-				extends VendingMachine 
-				implements Sellable {
+public class RefundableVendingMachine<I>
+				extends VendingMachine<I> 
+				implements Sellable<I> {
 
-	public RefundableVendingMachine() {
-		super();
+	public RefundableVendingMachine(I[] itemArray) {
+		super(itemArray);
 	}
 	
-	public RefundableVendingMachine(int money) {
-		super(money);
+	public RefundableVendingMachine(int money, I[] itemArray) {
+		super(money, itemArray);
 	}
 	
 	@Override

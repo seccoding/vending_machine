@@ -6,45 +6,33 @@ package vending_machine;
  * 이 클래스도 추상 클래스로 만들어 주어야 한다.<br/>
  * <b>환불 불가능한 자판기</b>
  */
-public class VendingMachine implements Sellable {
-
+public class VendingMachine<I> implements Sellable<I> {
+	
+	private InsertMoneyHandler<I> insertMoneyHandler;
+	private PressButtonHandler<I> pressButtonHandler;
+	private PrintHandler<I> printHandler;
+	
 	/**
 	 * 상품 수량
 	 */
-	private Product[] productArray;
+	private I[] productArray;
 	
 	/**
 	 * 돈
 	 */
 	private int money;
 	
-	public VendingMachine() {
-		this(100_000);
+	public VendingMachine(I[] itemArray) {
+		this(100_000, itemArray);
 	}
 	
-	public VendingMachine(int money) {
+	public VendingMachine(int money, I[] itemArray) {
 		this.money = money;
-		
-		this.productArray = new Product[3];
-		
-		this.productArray[0] = new Product();
-		this.productArray[0].setName("제로펩시");
-		this.productArray[0].setPrice(1600);
-		this.productArray[0].setQuantity(50);
-		
-		this.productArray[1] = new Product();
-		this.productArray[1].setName("제로콜라");
-		this.productArray[1].setPrice(1500);
-		this.productArray[1].setQuantity(30);
-		
-		this.productArray[2] = new Product();
-		this.productArray[2].setName("제로스프라이트");
-		this.productArray[2].setPrice(1400);
-		this.productArray[2].setQuantity(20);
+		this.productArray = itemArray;
 	}
 	
 	@Override
-	public Product[] getProductArray() {
+	public I[] getProductArray() {
 		return this.productArray;
 	}
 
@@ -57,15 +45,26 @@ public class VendingMachine implements Sellable {
 	public void setMoney(int money) {
 		this.money = money;
 	}
+	
+	@Override
+	public void setInsertMoneyHandler(InsertMoneyHandler<I> handler) {
+		this.insertMoneyHandler = handler;
+	}
+	
+	@Override
+	public void setPressButtonHandler(PressButtonHandler<I> handler) {
+		this.pressButtonHandler = handler;
+	}
+	
+	@Override
+	public void setPrintHandler(PrintHandler<I> handler) {
+		this.printHandler = handler;
+	}
 
 	@Override
 	public void insertMoney(Customer customer, String productName) {
-		for ( Product product : this.productArray ) {
-			if (product.equals(productName)) {
-				this.money += product.getPrice();
-				customer.pay(product.getPrice());
-				break; // 반복을 중단.
-			}
+		for ( I product : this.productArray ) {
+			this.insertMoneyHandler.handle(this, customer, product, productName);
 		}
 	}
 
@@ -76,20 +75,8 @@ public class VendingMachine implements Sellable {
 
 	@Override
 	public void pressButton(Customer customer, String productName, int orderCount) {
-		for ( Product product : this.productArray ) {
-			if (product.equals(productName)) {
-				if (product.getQuantity() <= 0) {
-					this.refund(customer, product.getPrice());
-					return; // 메소드를 종료.
-				}
-				
-				int quantity = product.getQuantity();
-				quantity -= orderCount;
-				product.setQuantity(quantity);
-				
-				customer.addStock(productName, product.getPrice(), orderCount);
-				break;
-			}
+		for ( I product : this.productArray ) {
+			this.pressButtonHandler.handle(this, customer, product, productName, orderCount);
 		}
 	}
 
@@ -100,10 +87,9 @@ public class VendingMachine implements Sellable {
 	@Override
 	public void printProducts() {
 		System.out.println("자판기의 잔액: " + this.money);
-		for ( Product product : this.productArray ) {
+		for ( I product : this.productArray ) {
 			if ( product != null ) {
-				System.out.println("자판기의 상품 수량: " + product.getQuantity());
-				System.out.println("자판기의 상품 이름: " + product.getName());
+				this.printHandler.handle(product);
 			}
 		}
 	}

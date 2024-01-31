@@ -1,6 +1,12 @@
 package vending_machine;
 
-public interface Sellable {
+/**
+ * <I extends Product> ==> Product 클래스를 상속한 타입만 가능(X)
+ *                     ==> Product 클래스를 상속한 타입 혹은
+ *                         Product 인터페이스를 구현한 타입 (O)
+ * @param <I>
+ */
+public interface Sellable<I> {
 
 	// interface 에서 상수를 정의할 때, 
 	// static final 은 자동으로 적용되므로 생략한다.
@@ -9,11 +15,17 @@ public interface Sellable {
 	public int PRODUCT_COUNT = 1;
 	public String MACHINE_NAME = "자판기";
 	
-	public Product[] getProductArray();
+	public I[] getProductArray();
 	
 	public int getMoney();
 	
 	public void setMoney(int money);
+	
+	public void setInsertMoneyHandler(InsertMoneyHandler<I> handler);
+	
+	public void setPressButtonHandler(PressButtonHandler<I> handler);
+	
+	public void setPrintHandler(PrintHandler<I> handler);
 	
 	/**
 	 * 돈을 넣는다.

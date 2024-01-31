@@ -14,6 +14,7 @@ public class Mart {
 //	}
 	
 	public static void main(String[] args) {
+		
 		// 모든 클래스의 슈퍼클래스는 Object
 		
 		/*
@@ -61,9 +62,61 @@ public class Mart {
 		// Sellable drinkVendingMachine = new VendingMachine();
 		// Sellable drinkVendingMachine = new RefundableVendingMachine();
 		
+		Product[] productArray = new Product[3];
+		productArray[0] = new Product();
+		productArray[0].setName("제로펩시");
+		productArray[0].setPrice(1600);
+		productArray[0].setQuantity(50);
+		
+		productArray[1] = new Product();
+		productArray[1].setName("제로콜라");
+		productArray[1].setPrice(1500);
+		productArray[1].setQuantity(30);
+		
+		productArray[2] = new Product();
+		productArray[2].setName("제로스프라이트");
+		productArray[2].setPrice(1400);
+		productArray[2].setQuantity(20);
 		
 		// 객체지향 방식으로 개발.
-		Sellable drinkMachine = new RefundableVendingMachine();
+		Sellable<Product> drinkMachine = new VendingMachine<>(100_000, productArray);
+		drinkMachine.setInsertMoneyHandler(new InsertMoneyHandler<Product>() {
+			@Override
+			public void handle(VendingMachine<Product> machine, Customer customer, 
+							    Product item, String productName) {
+				if (item.equals(productName)) {
+					int money = machine.getMoney();
+					money += item.getPrice();
+					machine.setMoney(money);
+					
+					customer.pay(item.getPrice());
+				}
+			}});
+		
+		drinkMachine.setPressButtonHandler(new PressButtonHandler<Product>() {
+			@Override
+			public void handle(VendingMachine<Product> machine, Customer customer, 
+							   Product item, String productName, int orderCount) {
+				if (item.equals(productName)) {
+					if (item.getQuantity() <= 0) {
+						machine.refund(customer, item.getPrice());
+						return; // 메소드를 종료.
+					}
+					
+					int quantity = item.getQuantity();
+					quantity -= orderCount;
+					item.setQuantity(quantity);
+					
+					customer.addStock(productName, item.getPrice(), orderCount);
+				}
+			}});
+		
+		drinkMachine.setPrintHandler(new PrintHandler<Product>() {
+			@Override
+			public void handle(Product item) {
+				System.out.println("자판기의 상품 수량: " + item.getQuantity());
+				System.out.println("자판기의 상품 이름: " + item.getName());
+			}});
 		
 		Customer musk = new Customer(200_000);
 		
@@ -76,7 +129,45 @@ public class Mart {
 		drinkMachine.printProducts();
 		musk.printProducts();
 		
-		Sellable snackMachine = new RefundableVendingMachine(400);
+		Sellable<Product> snackMachine = new RefundableVendingMachine<>(400, productArray);
+		snackMachine.setInsertMoneyHandler(new InsertMoneyHandler<Product>() {
+			@Override
+			public void handle(VendingMachine<Product> machine, Customer customer, 
+							    Product item, String productName) {
+				if (item.equals(productName)) {
+					int money = machine.getMoney();
+					money += item.getPrice();
+					machine.setMoney(money);
+					
+					customer.pay(item.getPrice());
+				}
+			}});
+		
+		snackMachine.setPressButtonHandler(new PressButtonHandler<Product>() {
+			@Override
+			public void handle(VendingMachine<Product> machine, Customer customer, 
+							   Product item, String productName, int orderCount) {
+				if (item.equals(productName)) {
+					if (item.getQuantity() <= 0) {
+						machine.refund(customer, item.getPrice());
+						return; // 메소드를 종료.
+					}
+					
+					int quantity = item.getQuantity();
+					quantity -= orderCount;
+					item.setQuantity(quantity);
+					
+					customer.addStock(productName, item.getPrice(), orderCount);
+				}
+			}});
+		
+		snackMachine.setPrintHandler(new PrintHandler<Product>() {
+			@Override
+			public void handle(Product item) {
+				System.out.println("자판기의 상품 수량: " + item.getQuantity());
+				System.out.println("자판기의 상품 이름: " + item.getName());
+			}});
+		
 		snackMachine.insertMoney(musk, "제로펩시");
 		snackMachine.pressButton(musk, "제로펩시", 50);
 		

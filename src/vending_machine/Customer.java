@@ -28,7 +28,7 @@ public class Customer {
 	public Customer(int wallet) {
 		this.wallet = wallet;
 //		this.stock = stock;
-		this.productArray = new Product[3];
+		this.productArray = new Product[3]; // 0 1 2
 	}
 	
 	/**
