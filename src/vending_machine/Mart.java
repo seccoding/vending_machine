@@ -1,5 +1,8 @@
 package vending_machine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mart {
 
 //	public static void printProduct(Product p) {
@@ -62,24 +65,27 @@ public class Mart {
 		// Sellable drinkVendingMachine = new VendingMachine();
 		// Sellable drinkVendingMachine = new RefundableVendingMachine();
 		
-		Product[] productArray = new Product[3];
-		productArray[0] = new Product();
-		productArray[0].setName("제로펩시");
-		productArray[0].setPrice(1600);
-		productArray[0].setQuantity(50);
+		List<Product> productList = new ArrayList<>();
+		Product product1 = new Product();
+		product1.setName("제로펩시");
+		product1.setPrice(1600);
+		product1.setQuantity(50);
+		productList.add(product1);
 		
-		productArray[1] = new Product();
-		productArray[1].setName("제로콜라");
-		productArray[1].setPrice(1500);
-		productArray[1].setQuantity(30);
+		Product product2 = new Product();
+		product2.setName("제로콜라");
+		product2.setPrice(1500);
+		product2.setQuantity(30);
+		productList.add(product2);
 		
-		productArray[2] = new Product();
-		productArray[2].setName("제로스프라이트");
-		productArray[2].setPrice(1400);
-		productArray[2].setQuantity(20);
+		Product product3 = new Product();
+		product3.setName("제로스프라이트");
+		product3.setPrice(1400);
+		product3.setQuantity(20);
+		productList.add(product3);
 		
 		// 객체지향 방식으로 개발.
-		Sellable<Product> drinkMachine = new VendingMachine<>(100_000, productArray);
+		Sellable<Product> drinkMachine = new VendingMachine<>(100_000, productList);
 		drinkMachine.setInsertMoneyHandler(new InsertMoneyHandler<Product>() {
 			@Override
 			public void handle(VendingMachine<Product> machine, Customer customer, 
@@ -129,7 +135,7 @@ public class Mart {
 		drinkMachine.printProducts();
 		musk.printProducts();
 		
-		Sellable<Product> snackMachine = new RefundableVendingMachine<>(400, productArray);
+		Sellable<Product> snackMachine = new RefundableVendingMachine<>(400, productList);
 		snackMachine.setInsertMoneyHandler(new InsertMoneyHandler<Product>() {
 			@Override
 			public void handle(VendingMachine<Product> machine, Customer customer, 

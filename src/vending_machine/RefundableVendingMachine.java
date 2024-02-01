@@ -1,5 +1,7 @@
 package vending_machine;
 
+import java.util.List;
+
 /**
  * 환불 기능이 있는 자판기
  */
@@ -7,11 +9,11 @@ public class RefundableVendingMachine<I>
 				extends VendingMachine<I> 
 				implements Sellable<I> {
 
-	public RefundableVendingMachine(I[] itemArray) {
+	public RefundableVendingMachine(List<I> itemArray) {
 		super(itemArray);
 	}
 	
-	public RefundableVendingMachine(int money, I[] itemArray) {
+	public RefundableVendingMachine(int money, List<I> itemArray) {
 		super(money, itemArray);
 	}
 	

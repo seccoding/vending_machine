@@ -1,5 +1,8 @@
 package vending_machine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
 
 	/**
@@ -11,13 +14,13 @@ public class Customer {
 	 * 고객이 가진 상품의 수량
 	 */
 //	int stock;
-	private Product[] productArray;
+	private List<Product> productArray;
 	
 	public int getWallet() {
 		return this.wallet;
 	}
 	
-	public Product[] getProductArray() {
+	public List<Product> getProductArray() {
 		return this.productArray;
 	}
 	
@@ -28,7 +31,7 @@ public class Customer {
 	public Customer(int wallet) {
 		this.wallet = wallet;
 //		this.stock = stock;
-		this.productArray = new Product[3]; // 0 1 2
+		this.productArray = new ArrayList<>(); // 0 1 2
 	}
 	
 	/**
@@ -65,13 +68,11 @@ public class Customer {
 			product.setQuantity(quantity);
 		}
 		else {
-			int nullIndex = this.getNullIndex();
-			if (nullIndex >= 0) {
-				this.productArray[nullIndex] = new Product();
-				this.productArray[nullIndex].setName(name);
-				this.productArray[nullIndex].setPrice(price);
-				this.productArray[nullIndex].setQuantity(productCount);
-			}
+			Product buyProduct = new Product();
+			buyProduct.setName(name);
+			buyProduct.setPrice(price);
+			buyProduct.setQuantity(productCount);
+			this.productArray.add(buyProduct);
 		}
 	}
 	
@@ -83,16 +84,6 @@ public class Customer {
 		}
 		
 		return null;
-	}
-	
-	private int getNullIndex() {
-		for ( int i = 0; i < this.productArray.length; i++ ) {
-			if (this.productArray[i] == null) {
-				return i;
-			}
-		}
-		
-		return -1;
 	}
 	
 	public void printProducts() {

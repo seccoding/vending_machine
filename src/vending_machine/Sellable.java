@@ -1,5 +1,7 @@
 package vending_machine;
 
+import java.util.List;
+
 /**
  * <I extends Product> ==> Product 클래스를 상속한 타입만 가능(X)
  *                     ==> Product 클래스를 상속한 타입 혹은
@@ -15,7 +17,7 @@ public interface Sellable<I> {
 	public int PRODUCT_COUNT = 1;
 	public String MACHINE_NAME = "자판기";
 	
-	public I[] getProductArray();
+	public List<I> getProductArray();
 	
 	public int getMoney();
 	
