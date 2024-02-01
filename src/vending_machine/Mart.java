@@ -152,7 +152,7 @@ public class Mart {
 		initiatePressButtonHandler(snackMachine);
 		initiatePrintHandler(snackMachine);
 		
-		drinkMachine.addProduct("엔쵸", 700, 10);
+		snackMachine.addProduct("엔쵸", 700, 10);
 		
 		snackMachine.insertMoney(musk, "제로펩시");
 		snackMachine.pressButton(musk, "제로펩시", 50);
