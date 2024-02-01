@@ -134,6 +134,8 @@ public class Mart {
 		initiatePressButtonHandler(drinkMachine);
 		initiatePrintHandler(drinkMachine);
 		
+		drinkMachine.addProduct("보이차", 4000, 20);
+		
 		Customer musk = new Customer(200_000);
 		
 		drinkMachine.insertMoney(musk, "제로펩시");
@@ -149,6 +151,8 @@ public class Mart {
 		initiateInsertMoneyHandler(snackMachine);
 		initiatePressButtonHandler(snackMachine);
 		initiatePrintHandler(snackMachine);
+		
+		drinkMachine.addProduct("엔쵸", 700, 10);
 		
 		snackMachine.insertMoney(musk, "제로펩시");
 		snackMachine.pressButton(musk, "제로펩시", 50);
