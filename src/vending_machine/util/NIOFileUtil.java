@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vending_machine.Product;
+import vending_machine.constants.AppendType;
 
 /**
  * Java 1.8 이상버전의 파일 유틸리티
@@ -87,14 +88,14 @@ public class NIOFileUtil {
 	public static void writeFile(String parent, 
 								  String name, 
 								  String description, 
-								  boolean append) {
+								  AppendType appendType) {
 		
 		File file = new File(parent, name);
 		if ( ! file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
 		}
 		
-		if ( ! append ) {
+		if ( appendType == AppendType.OVER_WRITE ) {
 			int index = 2;
 			while (file.exists()) {
 				file = new File(file.getParent(), name + " (" + (index++) + ").txt");
@@ -107,13 +108,13 @@ public class NIOFileUtil {
 		
 		// 파일를 쓴다.
 		try {
-			if ( ! append ) {
-				Files.write(file.toPath(), fileDesc, Charset.forName("UTF-8"));
+			if ( appendType == AppendType.APPEND ) {
+				Files.write(file.toPath(), 
+						fileDesc, 
+						Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 			}
 			else {
-				Files.write(file.toPath(), 
-							fileDesc, 
-							Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+				Files.write(file.toPath(), fileDesc, Charset.forName("UTF-8"));
 			}
 			
 		} catch (IOException e) {

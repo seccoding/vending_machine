@@ -2,6 +2,7 @@ package vending_machine;
 
 import java.util.List;
 
+import vending_machine.constants.AppendType;
 import vending_machine.util.NIOFileUtil;
 
 /**
@@ -73,7 +74,10 @@ public class VendingMachine<I> implements Sellable<I> {
 										quantity + "");
 		
 //		FileUtil.writeFile("C:\\Java Exam", "goods.csv", description, true);
-		NIOFileUtil.writeFile("C:\\Java Exam", "goods.csv", description, true);
+		NIOFileUtil.writeFile("C:\\Java Exam", 
+				              "goods.csv", 
+				              description, 
+				              AppendType.APPEND);
 	}
 	
 	@Override
