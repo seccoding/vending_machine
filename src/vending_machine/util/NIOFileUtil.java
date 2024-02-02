@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +81,47 @@ public class NIOFileUtil {
 		}
 		
 		return new ArrayList<>();
+	}
+	
+	
+	public static void writeFile(String parent, 
+								  String name, 
+								  String description, 
+								  boolean append) {
+		
+		File file = new File(parent, name);
+		if ( ! file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
+		
+		if ( ! append ) {
+			int index = 2;
+			while (file.exists()) {
+				file = new File(file.getParent(), name + " (" + (index++) + ").txt");
+			}
+		}
+		
+		// 파일에 쓸 내용.
+		List<String> fileDesc = new ArrayList<>();
+		fileDesc.add(description);
+		
+		// 파일를 쓴다.
+		try {
+			if ( ! append ) {
+				Files.write(file.toPath(), fileDesc, Charset.forName("UTF-8"));
+			}
+			else {
+				Files.write(file.toPath(), 
+							fileDesc, 
+							Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			}
+			
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.println(file.getAbsolutePath());
+		
 	}
 	
 }

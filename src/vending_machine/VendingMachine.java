@@ -2,7 +2,7 @@ package vending_machine;
 
 import java.util.List;
 
-import vending_machine.util.FileUtil;
+import vending_machine.util.NIOFileUtil;
 
 /**
  * 상속 받은 클래스가 추상 메소드가 존재하는 추상 클래스라면<br/>
@@ -72,7 +72,8 @@ public class VendingMachine<I> implements Sellable<I> {
 										price + "", 
 										quantity + "");
 		
-		FileUtil.writeFile("C:\\Java Exam", "goods.csv", description, true);
+//		FileUtil.writeFile("C:\\Java Exam", "goods.csv", description, true);
+		NIOFileUtil.writeFile("C:\\Java Exam", "goods.csv", description, true);
 	}
 	
 	@Override
