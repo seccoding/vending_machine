@@ -8,8 +8,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import vending_machine.Product;
 import vending_machine.constants.AppendType;
+import vending_machine.vo.Product;
 
 /**
  * Java 1.8 이상버전의 파일 유틸리티

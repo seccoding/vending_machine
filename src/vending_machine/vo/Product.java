@@ -1,4 +1,4 @@
-package vending_machine;
+package vending_machine.vo;
 
 /**
  * 자판기에서 판매할 상품의 정보 (데이터 클래스)

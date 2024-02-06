@@ -1,4 +1,8 @@
-package vending_machine;
+package vending_machine.abs;
+
+import vending_machine.customers.Customer;
+import vending_machine.machines.VendingMachine;
+import vending_machine.vo.Product;
 
 /**
  * 자판기의 추상 클래스

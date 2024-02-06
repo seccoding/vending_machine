@@ -1,7 +1,9 @@
-package vending_machine;
+package vending_machine.customers;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import vending_machine.vo.Product;
 
 public class Customer {
 

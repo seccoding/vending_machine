@@ -1,6 +1,11 @@
-package vending_machine;
+package vending_machine.inf;
 
 import java.util.List;
+
+import vending_machine.customers.Customer;
+import vending_machine.handlers.InsertMoneyHandler;
+import vending_machine.handlers.PressButtonHandler;
+import vending_machine.handlers.PrintHandler;
 
 /**
  * <I extends Product> ==> Product 클래스를 상속한 타입만 가능(X)

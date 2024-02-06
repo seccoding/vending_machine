@@ -1,4 +1,7 @@
-package vending_machine;
+package vending_machine.handlers;
+
+import vending_machine.customers.Customer;
+import vending_machine.machines.VendingMachine;
 
 public interface InsertMoneyHandler<I> {
 

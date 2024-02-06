@@ -1,4 +1,4 @@
-package vending_machine;
+package vending_machine.handlers;
 
 public interface PrintHandler<I> {
 
